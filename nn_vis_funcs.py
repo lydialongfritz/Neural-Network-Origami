@@ -76,3 +76,15 @@ def find_model_contours(model, u_range, v_range, grid_resolution=(50,50), layer=
 
     return contours
 
+
+# returns a list of the layer sizes in a torch model
+def get_layer_sizes(model):
+    ls = []
+    first_flag = True
+    for layer in model:
+        if (type(layer) == nn.Linear):
+            if first_flag:
+                ls.append(layer.in_features)
+                first_flag = False
+            ls.append(layer.out_features)
+    return ls
